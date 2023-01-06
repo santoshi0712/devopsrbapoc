@@ -1,0 +1,51 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: 'Azure-Infra_Pool'
+
+variables:
+  system.debug: true
+  containerRegistryServiceConnection: serviceConnectionName
+  imageRepository: foobar/content-trust
+  tag: test
+
+steps:
+ - task: Docker@2
+  inputs:
+    command: login
+    containerRegistry: $(acr-connection)
+
+- task: DownloadSecureFile@1
+  name: privateKey
+  inputs:
+    secureFile: delegation.key
+- script: |
+    mkdir -p $(DOCKER_CONFIG)/trust/private
+    cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
+
+- task: Docker@2
+  inputs:
+    command: build
+    Dockerfile: '**/Dockerfile'
+    containerRegistry: $(containerRegistryServiceConnection)
+    repository: $(imageRepository)
+    tags: |
+      $(tag)
+    arguments: '--disable-content-trust=false'
+
+- task: Docker@2
+  inputs: 
+    command: push
+    containerRegistry: $(containerRegistryServiceConnection)
+    repository: $(imageRepository)
+    tags: |
+      $(tag)
+    arguments: '--disable-content-trust=false'
+  env:
+    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: $(DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE)
