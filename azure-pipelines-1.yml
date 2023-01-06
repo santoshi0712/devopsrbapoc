@@ -33,7 +33,7 @@ steps:
 - task: Docker@2
   inputs:
     command: build
-    Dockerfile: 'dockerfile'
+    Dockerfile: 'dockerfile1'
     containerRegistry: acr-connection
     repository: demopoc
     tags: |
