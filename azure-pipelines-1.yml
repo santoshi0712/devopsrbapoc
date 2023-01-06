@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  agent: ubuntu-20.04
+  agent: Azure-Infra_Pool
 
 #variables:
   #system.debug: true
