@@ -36,7 +36,7 @@ steps:
     azureSubscription: 'Azure-Infra-Terraform'
     azurecontainerregistry: ACR5000
     action: Build an image
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: '**/dockerfile'
     #repository: $(imageRepository)
     #tags: |
     #  $(tag)
