@@ -39,4 +39,13 @@ steps:
     tags: |
       latest
     arguments: '--disable-content-trust=false'
- 
+
+- task: Docker@0
+  inputs: 
+    containerregistrytype: Azure Container Registry
+    azureSubscription: :Azure-Infra_Pool
+    azurecontainerRegistry: acr5000
+    action: Push an image
+    imageName: acr5000.azurecr.io/dempoc:latest
+  env:
+    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
