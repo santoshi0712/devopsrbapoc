@@ -43,7 +43,7 @@ steps:
 - task: Docker@0
   inputs: 
     containerregistrytype: Azure Container Registry
-    azureSubscription: acr-connection
+    azureSubscription: Azure-Infra-Terraform
     azurecontainerRegistry: acr5000
     action: Push an image
     imageName: acr5000.azurecr.io/dempoc:latest
