@@ -30,10 +30,12 @@ steps:
     cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
-- task: Docker@2
+- task: Docker@0
   inputs:
-    command: build
-    containerRegistry: Azure-Infra_Pool
+    containerregistrytype: Azure Container Registry
+    azureSubscription: 'Azure-Infra-Terraform'
+    azurecontainerregistry: ACR5000
+    action: Build an image
     Dockerfile: '**/Dockerfile'
     #repository: $(imageRepository)
     tags: |
