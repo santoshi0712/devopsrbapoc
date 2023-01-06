@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'Azure-Infra_Pool'
+  name: Azure-Infra_Pool
 
 #variables:
   #system.debug: true
