@@ -6,8 +6,8 @@
 trigger:
 - main
 
-pool:
-  agent: Ubuntu 22.04
+pool: Azure Pipelines
+  agent:ubuntu-20.04
 
 #variables:
   #system.debug: true
