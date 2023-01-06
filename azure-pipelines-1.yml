@@ -35,6 +35,6 @@ steps:
     azureSubscription: 'Azure-Infra-Terraform'
     azurecontainerregistry: ACR5000
     action: Build an image
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: 'https://github.com/ayushigupta-12/devopsrbapoc'
     imageName: :$(Build.Repository.Name):$(Build.BuildId)
  
