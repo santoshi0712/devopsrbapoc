@@ -29,12 +29,13 @@ steps:
     mkdir -p $(DOCKER_CONFIG)/trust/private
     cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
 
-- task: Docker@0
+- task: Docker@2
   inputs:
-    containerregistrytype: Azure Container Registry
-    azureSubscription: 'Azure-Infra-Terraform'
-    azurecontainerregistry: ACR5000
-    action: Build an image
-    Dockerfile: 'https://github.com/ayushigupta-12/devopsrbapoc/dockerfile'
-    imageName: :$(Build.Repository.Name):$(Build.BuildId)
+    command: build
+    Dockerfile: '**/Dockerfile'
+    containerRegistry: acr-connection
+    repository: $(imageRepository)
+    tags: |
+      $(tag)
+    arguments: '--disable-content-trust=false'
  
