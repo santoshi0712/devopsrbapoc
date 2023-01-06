@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  agent: 'Ubuntu 22.04'
+  agent: Ubuntu 22.04
 
 #variables:
   #system.debug: true
