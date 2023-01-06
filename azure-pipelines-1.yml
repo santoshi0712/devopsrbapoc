@@ -9,14 +9,14 @@ trigger:
 pool:
   vmImage: 'Azure-Infra_Pool'
 
-variables:
-  system.debug: true
-  containerRegistryServiceConnection: serviceConnectionName
-  imageRepository: foobar/content-trust
-  tag: test
+#variables:
+  #system.debug: true
+  #containerRegistryServiceConnection: serviceConnectionName
+  #imageRepository: foobar/content-trust
+  #tag: test
 
 steps:
- - task: Docker@2
+- task: Docker@2
   inputs:
     command: login
     containerRegistry: acr-connection
