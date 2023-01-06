@@ -26,10 +26,10 @@ steps:
   inputs:
     secureFile: 7cbecf5ebd0b532cd5324fbd92242c36f870a69761ef246c9ad2bce149c29826.key
 - script: |
-  cd ../../../..
-  sudo su
-  cd root/test
-    #git clone https://github.com/ayushigupta-12/devopsrbapoc
+    cd ../../../..
+    sudo su
+    cd root/test
+  #  git clone https://github.com/ayushigupta-12/devopsrbapoc
  #   mkdir -p $(DOCKER_CONFIG)/trust/private
     #cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
 
