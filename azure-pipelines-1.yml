@@ -28,13 +28,14 @@ steps:
 - script: |
     mkdir -p $(DOCKER_CONFIG)/trust/private
     cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
+    git clone https://github.com/ayushigupta-12/devopsrbapoc
 
 - task: Docker@2
   inputs:
     command: build
+    containerRegistry: Azure-Infra_Pool
     Dockerfile: '**/Dockerfile'
-    containerRegistry: acr-connection
-    repository: $(imageRepository)
+    #repository: $(imageRepository)
     tags: |
       $(tag)
     arguments: '--disable-content-trust=false'
