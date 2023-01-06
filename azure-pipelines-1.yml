@@ -26,9 +26,9 @@ steps:
   inputs:
     secureFile: 7cbecf5ebd0b532cd5324fbd92242c36f870a69761ef246c9ad2bce149c29826.key
 - script: |
-    mkdir -p $(DOCKER_CONFIG)/trust/private
-    cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
+    #mkdir -p $(DOCKER_CONFIG)/trust/private
+    #cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
 
 - task: Docker@0
   inputs:
@@ -38,7 +38,7 @@ steps:
     action: Build an image
     Dockerfile: '**/Dockerfile'
     #repository: $(imageRepository)
-    tags: |
-      $(tag)
-    arguments: '--disable-content-trust=false'
+    #tags: |
+    #  $(tag)
+    #arguments: '--disable-content-trust=false'
  
