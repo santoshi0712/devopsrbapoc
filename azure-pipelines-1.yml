@@ -7,7 +7,6 @@ trigger:
 - main
 
 pool:
-  name: Azure Pipelines
   agent: ubuntu-20.04
 
 #variables:
