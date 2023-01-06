@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: Azure-Infra_Pool
+  vmImage: 'Ubuntu 16.04'
 
 #variables:
   #system.debug: true
