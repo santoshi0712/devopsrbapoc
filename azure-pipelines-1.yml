@@ -19,33 +19,12 @@ steps:
  - task: Docker@2
   inputs:
     command: login
-    containerRegistry: $(acr-connection)
+    containerRegistry: acr-connection
 
 - task: DownloadSecureFile@1
   name: privateKey
   inputs:
-    secureFile: delegation.key
+    secureFile: 7cbecf5ebd0b532cd5324fbd92242c36f870a69761ef246c9ad2bce149c29826.key
 - script: |
     mkdir -p $(DOCKER_CONFIG)/trust/private
     cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
-
-- task: Docker@2
-  inputs:
-    command: build
-    Dockerfile: '**/Dockerfile'
-    containerRegistry: $(containerRegistryServiceConnection)
-    repository: $(imageRepository)
-    tags: |
-      $(tag)
-    arguments: '--disable-content-trust=false'
-
-- task: Docker@2
-  inputs: 
-    command: push
-    containerRegistry: $(containerRegistryServiceConnection)
-    repository: $(imageRepository)
-    tags: |
-      $(tag)
-    arguments: '--disable-content-trust=false'
-  env:
-    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: $(DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE)
