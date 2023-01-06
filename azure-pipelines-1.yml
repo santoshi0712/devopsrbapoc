@@ -3,8 +3,11 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+trigger:
+- main
+
 pool:
-  agent: 'Azure-Infra_Pool'
+  name: Azure-Infra_Pool
 
 #variables:
   #system.debug: true
