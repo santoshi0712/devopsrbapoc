@@ -24,11 +24,11 @@ steps:
 - task: DownloadSecureFile@1
   name: privateKey
   inputs:
-    secureFile: 7cbecf5ebd0b532cd5324fbd92242c36f870a69761ef246c9ad2bce149c29826.key
+    secureFile: 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key
 - script: |
+    mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
+    cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
-#    mkdir -p $(DOCKER_CONFIG)/trust/private
-#    cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
 
 - task: Docker@2
   inputs:
@@ -41,7 +41,7 @@ steps:
     arguments: '--disable-content-trust=false'
 - script: |
     az acr login -n acr5000.azurecr.io
-    docker trust signer add --key 7cbecf5ebd0b532cd5324fbd92242c36f870a69761ef246c9ad2bce149c29826.key jeff acr5000.azurecr.io/demopoc
+    docker trust signer add --key 7cbecf5ebd0b532cd5324fbd92242c36f870a69761ef246c9ad2bce149c29826.key poc acr5000.azurecr.io/demopoc
 
 - task: Docker@0
   inputs: 
