@@ -24,13 +24,22 @@ steps:
 - task: DownloadSecureFile@1
   name: privateKey
   inputs:
+    secureFile: 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key
+- script: |
+    mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
+    cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
+    echo $(System.DefaultWorkingDirectory)/trust/private
+    git clone https://github.com/ayushigupta-12/devopsrbapoc
+
+- task: DownloadSecureFile@1
+  name: publicKey
+  inputs:
     secureFile: poc.pub
     #secureFile: 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key
 - script: |
     mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
     cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
     echo $(System.DefaultWorkingDirectory)/trust/private
-    git clone https://github.com/ayushigupta-12/devopsrbapoc
 
 - task: Docker@2
   inputs:
@@ -45,7 +54,7 @@ steps:
     az acr login -n acr5000.azurecr.io
     echo $(System.DefaultWorkingDirectory)
     cd trust/private
-    docker trust signer add --key poc.pub poc acr5000.azurecr.io/demopoc
+    docker trust signer add --key 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key poc acr5000.azurecr.io/demopoc
    # docker trust signer add --key 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key poc acr5000.azurecr.io/demopoc
 
 - task: Docker@0
