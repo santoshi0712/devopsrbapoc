@@ -42,6 +42,7 @@ steps:
     arguments: '--disable-content-trust=false'
 - script: |
     az acr login -n acr5000.azurecr.io
+    echo $(System.DefaultWorkingDirectory)
     docker trust signer add --key 7cbecf5ebd0b532cd5324fbd92242c36f870a69761ef246c9ad2bce149c29826.key poc acr5000.azurecr.io/demopoc
 
 - task: Docker@0
