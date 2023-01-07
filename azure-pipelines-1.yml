@@ -46,6 +46,6 @@ steps:
     azureSubscription: Azure-Infra-Terraform
     azurecontainerRegistry: acr5000
     action: Push an image
-    imageName: acr5000.azurecr.io/dempoc:latest
+    imageName: acr5000.azurecr.io/demopoc:latest
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
