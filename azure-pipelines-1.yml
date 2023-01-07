@@ -28,6 +28,7 @@ steps:
 - script: |
     mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
     cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
+    echo $(System.DefaultWorkingDirectory)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
 - task: Docker@2
