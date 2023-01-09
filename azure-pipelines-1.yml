@@ -52,7 +52,7 @@ steps:
 - script: |
     echo $(System.DefaultWorkingDirectory)
     cd trust/private
-    docker trust signer add --key 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key poc acr5000.azurecr.io/demopoc
+    docker trust signer add --key poc.pub poc acr5000.azurecr.io/demopoc
    # docker trust signer add --key 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key poc acr5000.azurecr.io/demopoc
 
 - task: Docker@0
