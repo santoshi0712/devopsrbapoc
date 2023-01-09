@@ -37,7 +37,7 @@ steps:
     secureFile: poc.pub
     #secureFile: 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key
 - script: |
-    cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
+    cp $(publicKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
     echo $(System.DefaultWorkingDirectory)/trust/private
 
 - task: Docker@2
