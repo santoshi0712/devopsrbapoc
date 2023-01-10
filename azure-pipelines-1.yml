@@ -33,6 +33,11 @@ steps:
 - script: |
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
+- task: DownloadSecureFile@1
+  name: privatekey
+  inputs:
+    secureFile: mykey.key
+
 - task: Docker@2
   inputs:
     command: build
