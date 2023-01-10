@@ -27,17 +27,22 @@ steps:
     script: 'echo delegationkey > delegation.key'    
 
 - task: DownloadSecureFile@1
-  name: privatekey
+  name: certificate
   inputs:
     secureFile: mypoc.crt
 - script: |
+    mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
+    cp $(certificate.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
+    echo $(System.DefaultWorkingDirectory)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
 - task: DownloadSecureFile@1
   name: privatekey
   inputs:
     secureFile: mykey.key
-
+- script:
+    cp $(privateKey.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
+    echo $(System.DefaultWorkingDirectory)/trust/private
 - task: Docker@2
   inputs:
     command: build
@@ -50,7 +55,11 @@ steps:
 - script: |
     echo $(System.DefaultWorkingDirectory)
     cd trust/private
-    docker trust signer add --key mypoc.crt acr5000.azurecr.io/demopoc
+    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="mypassphrase123"
+    docker trust key load mykey.key --name tcspoc
+    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="rootpassphrase123"
+    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
+    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopo
    # docker trust signer add --key 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key poc acr5000.azurecr.io/demopoc
 
 - task: Docker@0
