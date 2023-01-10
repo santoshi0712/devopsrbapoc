@@ -22,17 +22,13 @@ steps:
     command: login
     containerRegistry: acr-connection
 
-- task: CmdLine@2
-  inputs:
-    script: 'echo delegationkey > delegation.key'    
-
 - task: DownloadSecureFile@1
   name: certificate
   inputs:
     secureFile: mypoc.crt
 - script: |
     mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
-    cp $(certificate.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
+    cp $(certificate.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
     echo $(System.DefaultWorkingDirectory)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
@@ -40,9 +36,10 @@ steps:
   name: privatekey
   inputs:
     secureFile: mykey.key
-- script:
-    cp $(privateKey.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
+- script: |
+    cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
     echo $(System.DefaultWorkingDirectory)/trust/private
+
 - task: Docker@2
   inputs:
     command: build
