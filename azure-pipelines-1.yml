@@ -52,6 +52,7 @@ steps:
 - script: |
     echo $(System.DefaultWorkingDirectory)
     cd trust/private
+    chmod 600 mykey.key
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="mypassphrase123"
     docker trust key load mykey.key --name tcspoc
     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="rootpassphrase123"
