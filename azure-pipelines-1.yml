@@ -47,7 +47,7 @@ steps:
     azureSubscription: Azure-Infra-Terraform
     action: "Build an Image"
     azureContainerRegistry: acr5000.azurecr.io
-    imageName: demopoc:latest
+    imageName: demopoc1:latest
 #    arguments: '--disable-content-trust=false'
   env:
     DOCKER_CONTENT_TRUST: 1
@@ -60,8 +60,9 @@ steps:
     az acr login -n acr5000.azurecr.io
     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc:latest
+    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc1:latest
     ls
+    docker trust key load 042c10894219a41ad36d47dcb95c8e70df49f31d169c02a757eeb9419b02a980.key
 
 - task: Docker@0
   inputs: 
@@ -69,6 +70,6 @@ steps:
     azureSubscription: Azure-Infra-Terraform
     azurecontainerRegistry: acr5000
     action: Push an image
-    imageName: acr5000.azurecr.io/demopoc:latest
+    imageName: acr5000.azurecr.io/demopoc1:latest
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
