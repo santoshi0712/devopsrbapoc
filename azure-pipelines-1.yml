@@ -45,7 +45,7 @@ steps:
     command: build
     Dockerfile: 'dockerfile1'
     containerRegistry: acr-connection
-    repository: demopoc3
+    repository: demo3
     tags: |
       latest
     arguments: '--disable-content-trust=false'
@@ -53,16 +53,16 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)/trust/private
     chmod 600 mykey.key
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
+    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="$Repo_pass"
     docker trust key load mykey.key --name tcspoc
     az acr login -n acr5000.azurecr.io
-    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc3:latest
+    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="Root_pass"
+    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="$Repo_pass"
+    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc4:latest
     ls
     pwd
-    docker trust inspect --pretty acr5000.azurecr.io/demopoc3:latest
-    #Repo_Key=`docker trust inspect --pretty acr5000.azurecr.io/demopoc3:latest | grep "Repository Key" | awk '{print $3}'`
+    docker trust inspect --pretty acr5000.azurecr.io/demopoc4:latest
+    #Repo_Key=`docker trust inspect --pretty acr5000.azurecr.io/demopoc4:latest | grep "Repository Key" | awk '{print $3}'`
     #docker trust key load $Repo_Key 
 #- task: Docker@0
 #  inputs: 
@@ -71,14 +71,16 @@ steps:
 #    azureSubscription: MBU_RBA_NextGen_POC (579ac225-23b7-4453-9785-6042f2570fe8)
 #    azurecontainerRegistry: acr5000
 #    action: Push an image
-#    imageName: acr5000.azurecr.io/demopoc3:latest
+#    imageName: acr5000.azurecr.io/demopoc4:latest
 #  env:
 #    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 - task: Docker@2
   inputs:
     containerRegistry: 'app_acr_registry_service_connection'
-    repository: 'demopoc3'
+    repository: 'demopoc4'
     command: 'push'
     tags: 'latest'
+  env:
+    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: $Repo_pass
 
 
