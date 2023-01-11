@@ -27,9 +27,9 @@ steps:
   inputs:
     secureFile: mypoc.crt
 - script: |
-    mkdir -p  $(DOCKER_CONFIG)/trust/private
-    cp $(certificate.secureFilePath)  $(DOCKER_CONFIG)/trust/private
-    echo $(DOCKER_CONFIG)/trust/private
+    mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
+    cp $(certificate.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
+    echo $(System.DefaultWorkingDirectory)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
 - task: DownloadSecureFile@1
@@ -37,8 +37,8 @@ steps:
   inputs:
     secureFile: mykey.key
 - script: |
-    cp $(privateKey.secureFilePath)  $(DOCKER_CONFIG)/trust/private
-    echo $(DOCKER_CONFIG)/trust/private
+    cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
+    echo $(System.DefaultWorkingDirectory)/trust/private
 
 - task: Docker@0
   inputs:
@@ -53,7 +53,7 @@ steps:
     DOCKER_CONTENT_TRUST: 1
 - script: |
     echo $(System.DefaultWorkingDirectory)
-    cd $(DOCKER_CONFIG)/trust/private
+    cd trust/private
     chmod 600 mykey.key
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     docker trust key load mykey.key --name tcspoc
@@ -63,7 +63,7 @@ steps:
     docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc1:latest
     ls
     pwd
-    docker trust key load 042c10894219a41ad36d47dcb95c8e70df49f31d169c02a757eeb9419b02a980.key
+    #docker trust key load 042c10894219a41ad36d47dcb95c8e70df49f31d169c02a757eeb9419b02a980.key
     docker trust inspect --pretty acr5000.azurecr.io/demopoc1:latest
 
 - task: Docker@0
