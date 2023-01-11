@@ -27,9 +27,9 @@ steps:
   inputs:
     secureFile: mypoc.crt
 - script: |
-    mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
-    cp $(certificate.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
-    echo $(System.DefaultWorkingDirectory)/trust/private
+    mkdir -p $(DOCKER_CONFIG)/trust/private
+    cp $(certificate.secureFilePath) $(DOCKER_CONFIG)/trust/private
+    echo$(DOCKER_CONFIG)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
 - task: DownloadSecureFile@1
@@ -37,8 +37,8 @@ steps:
   inputs:
     secureFile: mykey.key
 - script: |
-    cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
-    echo $(System.DefaultWorkingDirectory)/trust/private
+    cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
+    echo $(DOCKER_CONFIG)/trust/private
 
 - task: Docker@2
   inputs:
@@ -53,23 +53,22 @@ steps:
     DOCKER_CONTENT_TRUST: 1
 - script: |
     echo $(System.DefaultWorkingDirectory)
-    cd trust/private
-    chmod 600 mykey.key
+    chmod 600 $(DOCKER_CONFIG)/trust/private/mykey.key
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust key load mykey.key --name tcspoc
+    docker trust key load $(DOCKER_CONFIG)/trust/private/mykey.key --name tcspoc
     az acr login -n acr5000.azurecr.io
     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc1:latest
+    docker trust signer add --key $(DOCKER_CONFIG)/trust/private/mypoc.crt tcspoc acr5000.azurecr.io/demopoc1:latest
     ls
     pwd
-    #docker trust key load 042c10894219a41ad36d47dcb95c8e70df49f31d169c02a757eeb9419b02a980.key
+    docker trust key load 042c10894219a41ad36d47dcb95c8e70df49f31d169c02a757eeb9419b02a980.key
     docker trust inspect --pretty acr5000.azurecr.io/demopoc1:latest
 
 - task: Docker@0
   inputs: 
     containerregistrytype: Azure Container Registry
-    azureSubscription: RBA_Migration_POC 757f5bd2-4fe5-47cf-a431-1cd3b0b375f2
+    azureSubscription: Azure-Infra-Terraform
     azurecontainerRegistry: acr5000
     action: Push an image
     imageName: acr5000.azurecr.io/demopoc1:latest
