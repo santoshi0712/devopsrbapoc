@@ -20,7 +20,7 @@ steps:
 - task: Docker@2
   inputs:
     command: login
-    containerRegistry: acr-connection
+    containerRegistry: Azure-Infra-Terraform
 
 - task: DownloadSecureFile@1
   name: certificate
@@ -49,8 +49,6 @@ steps:
     tags: |
       latest
     arguments: '--disable-content-trust=false'
-  env:
-    DOCKER_CONTENT_TRUST: 1
 - script: |
     echo $(System.DefaultWorkingDirectory)
     cd $(DOCKER_CONFIG)/trust/private
@@ -69,6 +67,7 @@ steps:
 - task: Docker@0
   inputs: 
     containerregistrytype: Azure Container Registry
+    containerregistry: Azure-Infra-Terraform
     #azureSubscription: MBU_RBA_NextGen_POC (579ac225-23b7-4453-9785-6042f2570fe8)
     azurecontainerRegistry: acr5000
     action: Push an image
