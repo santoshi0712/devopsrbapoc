@@ -68,7 +68,7 @@ steps:
   inputs: 
     containerregistrytype: Azure Container Registry
     #azureSubscription: Azure-Infra-Terraform
-    azureSubscription: RBA_Migration_POC (757f5bd2-4fe5-47cf-a431-1cd3b0b375f2)
+    azureSubscription: MBU_RBA_NextGen_POC (579ac225-23b7-4453-9785-6042f2570fe8)
     azurecontainerRegistry: acr5000
     action: Push an image
     imageName: acr5000.azurecr.io/demopoc1:latest
