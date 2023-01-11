@@ -45,7 +45,7 @@ steps:
     command: build
     Dockerfile: 'dockerfile1'
     containerRegistry: acr-connection
-    repository: demo3
+    repository: demopoc4
     tags: |
       latest
     arguments: '--disable-content-trust=false'
