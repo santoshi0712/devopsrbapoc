@@ -53,7 +53,7 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)/trust/private
     chmod 600 mykey.key
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
+    sudo export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     sudo docker trust key load mykey.key --name tcspoc
     sudo az acr login -n acr5000.azurecr.io
     sudo export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
