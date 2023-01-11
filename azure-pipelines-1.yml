@@ -46,7 +46,7 @@ steps:
     containerRegistryType: Azure Container Registry
     azureSubscription: Azure-Infra-Terraform
     action: "Build an Image"
-    azureContainerRegistry: ACR5000
+    azureContainerRegistry: acr5000.azurecr.io
     imageName: demopoc:latest
 #    arguments: '--disable-content-trust=false'
   env:
