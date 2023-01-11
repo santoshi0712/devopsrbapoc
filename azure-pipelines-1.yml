@@ -45,7 +45,7 @@ steps:
     command: build
     Dockerfile: 'dockerfile1'
     containerRegistry: acr-connection
-    repository: demopoc1
+    repository: demopoc2
     tags: |
       latest
     arguments: '--disable-content-trust=false'
@@ -58,11 +58,11 @@ steps:
     az acr login -n acr5000.azurecr.io
     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key $(System.DefaultWorkingDirectory)/trust/private/mypoc.crt tcspoc acr5000.azurecr.io/demopoc1:latest
+    sudo docker trust signer add --key $(System.DefaultWorkingDirectory)/trust/private/mypoc.crt tcspoc acr5000.azurecr.io/demopoc2:latest
     ls
     pwd
     #docker trust key load 042c10894219a41ad36d47dcb95c8e70df49f31d169c02a757eeb9419b02a980.key
-    docker trust inspect --pretty acr5000.azurecr.io/demopoc1:latest
+    sudo docker trust inspect --pretty acr5000.azurecr.io/demopoc1:latest
 
 - task: Docker@0
   inputs: 
