@@ -50,15 +50,15 @@ steps:
       latest
     arguments: '--disable-content-trust=false'
 - script: |
-    echo $(System.DefaultWorkingDirectory) 
-    cd trust/private
-    chmod 600 $(DOCKER_CONFIG)/trust/private/mykey.key
+    echo $(System.DefaultWorkingDirectory)
+    cd $(DOCKER_CONFIG)/trust/private
+    chmod 600 mykey.key
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust key load $(DOCKER_CONFIG)/trust/private/mykey.key --name tcspoc
+    docker trust key load mykey.key --name tcspoc
     az acr login -n acr5000.azurecr.io
     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key $(DOCKER_CONFIG)/trust/private/mypoc.crt tcspoc acr5000.azurecr.io/demopoc
+    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc
 
 - task: Docker@0
   inputs: 
