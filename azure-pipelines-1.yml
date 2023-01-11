@@ -27,9 +27,9 @@ steps:
   inputs:
     secureFile: mypoc.crt
 - script: |
-    mkdir -p $(DOCKER_CONFIG)/trust/private
-    cp $(certificate.secureFilePath) $(DOCKER_CONFIG)/trust/private
-    echo$(DOCKER_CONFIG)/trust/private
+    mkdir -p $(System.DefaultWorkingDirectory)/trust/private
+    cp $(certificate.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
+    echo$(System.DefaultWorkingDirectory)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
 - task: DownloadSecureFile@1
@@ -37,8 +37,8 @@ steps:
   inputs:
     secureFile: mykey.key
 - script: |
-    cp $(privateKey.secureFilePath) $(DOCKER_CONFIG)/trust/private
-    echo $(DOCKER_CONFIG)/trust/private
+    cp $(privateKey.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
+    echo $(System.DefaultWorkingDirectory)/trust/private
 
 - task: Docker@2
   inputs:
@@ -51,7 +51,7 @@ steps:
     arguments: '--disable-content-trust=false'
 - script: |
     echo $(System.DefaultWorkingDirectory)
-    cd $(DOCKER_CONFIG)/trust/private
+    cd $(System.DefaultWorkingDirectory)/trust/private
     chmod 600 mykey.key
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     docker trust key load mykey.key --name tcspoc
