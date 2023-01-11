@@ -27,9 +27,9 @@ steps:
   inputs:
     secureFile: mypoc.crt
 - script: |
-    mkdir -p  $(System.DefaultWorkingDirectory)/trust/private
-    cp $(certificate.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
-    echo $(System.DefaultWorkingDirectory)/trust/private
+    mkdir -p  $(DOCKER_CONFIG)/trust/private
+    cp $(certificate.secureFilePath)  $(DOCKER_CONFIG)/trust/private
+    echo $(DOCKER_CONFIG)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
 
 - task: DownloadSecureFile@1
@@ -37,8 +37,8 @@ steps:
   inputs:
     secureFile: mykey.key
 - script: |
-    cp $(privateKey.secureFilePath)  $(System.DefaultWorkingDirectory)/trust/private
-    echo $(System.DefaultWorkingDirectory)/trust/private
+    cp $(privateKey.secureFilePath)  $(DOCKER_CONFIG)/trust/private
+    echo $(DOCKER_CONFIG)/trust/private
 
 - task: Docker@2
   inputs:
