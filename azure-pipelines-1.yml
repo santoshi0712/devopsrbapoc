@@ -62,7 +62,7 @@ steps:
     ls
     pwd
     docker trust inspect --pretty acr5000.azurecr.io/demopoc3:latest
-    Repo_Key=docker trust inspect --pretty acr5000.azurecr.io/demopoc3:latest | grep "Repository Key" | awk '{print $3}'
+    Repo_Key=`docker trust inspect --pretty acr5000.azurecr.io/demopoc3:latest | grep "Repository Key" | awk '{print $3}'`
     docker trust key load $Repo_Key 
 - task: Docker@0
   inputs: 
