@@ -20,7 +20,7 @@ steps:
 - task: Docker@2
   inputs:
     command: login
-    containerRegistry: Azure-Infra-Terraform
+    containerRegistry: acr-connection
 
 - task: DownloadSecureFile@1
   name: certificate
@@ -67,7 +67,7 @@ steps:
 - task: Docker@0
   inputs: 
     containerregistrytype: Azure Container Registry
-    containerregistry: Azure-Infra-Terraform
+    azureSubscription: Azure-Infra-Terraform
     #azureSubscription: MBU_RBA_NextGen_POC (579ac225-23b7-4453-9785-6042f2570fe8)
     azurecontainerRegistry: acr5000
     action: Push an image
