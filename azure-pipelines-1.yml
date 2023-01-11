@@ -54,10 +54,10 @@ steps:
     cd $(System.DefaultWorkingDirectory)/trust/private
     chmod 600 mykey.key
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust key load mykey.key --name tcspoc
-    az acr login -n acr5000.azurecr.io
-    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
+    sudo docker trust key load mykey.key --name tcspoc
+    sudo az acr login -n acr5000.azurecr.io
+    sudo export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
+    sudo export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     sudo docker trust signer add --key $(System.DefaultWorkingDirectory)/trust/private/mypoc.crt tcspoc acr5000.azurecr.io/demopoc2:latest
     ls
     pwd
