@@ -59,12 +59,11 @@ steps:
     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     docker trust signer add --key $(DOCKER_CONFIG)/trust/private/mypoc.crt tcspoc acr5000.azurecr.io/demopoc
-   # docker trust signer add --key 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key poc acr5000.azurecr.io/demopoc
 
 - task: Docker@0
   inputs: 
     containerregistrytype: Azure Container Registry
-    azureSubscription: MBU_RBA_NextGen_POC (579ac225-23b7-4453-9785-6042f2570fe8)
+    azureSubscription: Azure-Infra-Terraform
     azurecontainerRegistry: acr5000
     action: Push an image
     imageName: acr5000.azurecr.io/demopoc:latest
