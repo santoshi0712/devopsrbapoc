@@ -40,15 +40,17 @@ steps:
     cp $(privateKey.secureFilePath)  $(DOCKER_CONFIG)/trust/private
     echo $(DOCKER_CONFIG)/trust/private
 
-- task: Docker@2
+- task: Docker@0
   inputs:
-    command: build
     Dockerfile: 'dockerfile1'
-    containerRegistry: acr-connection
-    repository: demopoc
-    tags: |
-      latest
-    arguments: '--disable-content-trust=false'
+    containerRegistryType: Azure Container Registry
+    azureSubscription: Azure-Infra-Terraform
+    action: "Build an Image"
+    azureContainerRegistry: ACR5000
+    imageName: demopoc:latest
+#    arguments: '--disable-content-trust=false'
+  env:
+    DOCKER_CONTENT_TRUST: 1
 - script: |
     echo $(System.DefaultWorkingDirectory)
     cd $(DOCKER_CONFIG)/trust/private
