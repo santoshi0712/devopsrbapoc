@@ -17,6 +17,11 @@ pool:
   #tag: test
 
 steps:
+- task: Docker@2
+  inputs:
+    command: login
+    containerRegistry: acr-connection
+
 - task: DownloadSecureFile@1
   name: certificate
   inputs:
