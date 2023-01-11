@@ -56,7 +56,7 @@ steps:
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     docker trust key load mykey.key --name tcspoc
     az acr login -n acr5000.azurecr.io
-    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="mypoc123"
+    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc
    # docker trust signer add --key 15c9270acc563cb0d3ba82299ef3eb6ddfc87ef69dd0558e9cb2dd6d60ada1d8.key poc acr5000.azurecr.io/demopoc
