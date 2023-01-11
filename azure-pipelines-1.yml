@@ -53,11 +53,11 @@ steps:
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)/trust/private
     chmod 600 mykey.key
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=$Repo_pass
+    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     docker trust key load mykey.key --name tcspoc
     az acr login -n acr5000.azurecr.io
-    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE=$Root_pass
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE=$Repo_pass
+    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
+    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
     docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc4:latest
     ls
     pwd
@@ -81,6 +81,6 @@ steps:
     command: 'push'
     tags: 'latest'
   env:
-    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: $Repo_pass
+    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 
 
