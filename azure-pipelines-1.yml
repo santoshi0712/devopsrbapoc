@@ -53,22 +53,23 @@ steps:
     DOCKER_CONTENT_TRUST: 1
 - script: |
     echo $(System.DefaultWorkingDirectory)
-    chmod 600 $(DOCKER_CONFIG)/trust/private/mykey.key
+    cd $(DOCKER_CONFIG)/trust/private
+    chmod 600 mykey.key
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust key load $(DOCKER_CONFIG)/trust/private/mykey.key --name tcspoc
+    docker trust key load mykey.key --name tcspoc
     az acr login -n acr5000.azurecr.io
     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key $(DOCKER_CONFIG)/trust/private/mypoc.crt tcspoc acr5000.azurecr.io/demopoc1:latest
+    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/demopoc1:latest
     ls
     pwd
-    docker trust key load 042c10894219a41ad36d47dcb95c8e70df49f31d169c02a757eeb9419b02a980.key
+    #docker trust key load 042c10894219a41ad36d47dcb95c8e70df49f31d169c02a757eeb9419b02a980.key
     docker trust inspect --pretty acr5000.azurecr.io/demopoc1:latest
 
 - task: Docker@0
   inputs: 
     containerregistrytype: Azure Container Registry
-    azureSubscription: MBU_RBA_NextGen_POC (579ac225-23b7-4453-9785-6042f2570fe8)
+    #azureSubscription: MBU_RBA_NextGen_POC (579ac225-23b7-4453-9785-6042f2570fe8)
     azurecontainerRegistry: acr5000
     action: Push an image
     imageName: acr5000.azurecr.io/demopoc1:latest
