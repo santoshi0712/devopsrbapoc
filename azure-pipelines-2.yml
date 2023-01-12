@@ -21,7 +21,7 @@ steps:
   inputs:
     secureFile: 'xyz.crt'
 - script: |
-    mkdir $(System.DefaultWorkingDirectory)/trust/private
+    mkdir -p $(System.DefaultWorkingDirectory)/trust/private
     cp $(certificate.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
     echo$(System.DefaultWorkingDirectory)/trust/private
     git clone https://github.com/ayushigupta-12/devopsrbapoc
