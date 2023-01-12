@@ -67,25 +67,22 @@ steps:
     command: 'push'
     tags: $(Build.BuildId)
 
-
 - task: JFrogDocker@1
+  displayName: 'JFrog Docker Scan'
   inputs:
-    command: 'Scan'
+    command: Scan
     xrayConnection: 'jxray_svc'
-    watchesSource: 'none'
-    licenses: true
-    allowFailBuild: true
-    threads: '3'
-    skipLogin: false
-    imageName: $(Build.Repository.Name)
+    imageName: 'devopsrbapocjfrog.jfrog.io/dockerimages/ayushigupta-12/devopsrbapoc:$(Build.BuildId)'
+    watchesSource: repoPath
+    repoPath: dockerimages
 
 #- task: JFrogBuildScan@1
 #  inputs:
-#    xrayConnection: 'jxray_svc'
-#    buildName: '$(Build.Repository.Name)'
-#    buildNumber: '$(Build.BuildId)'
-#    allowFailBuild: true
-#    vuln: false
+    # xrayConnection: 'jxray_svc'
+    # buildName: '$(Build.Repository.Name)'
+    # buildNumber: '$(Build.BuildId)'
+    # allowFailBuild: true
+    # vuln: false
 
 #- task: ArtifactoryXrayScan@1
 #  inputs:
