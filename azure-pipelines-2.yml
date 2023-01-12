@@ -40,19 +40,19 @@ steps:
     command: 'build'
     Dockerfile: 'dockerfile1'
     arguments: '--disable-content-trust=false'
-- script: |
-    echo $(System.DefaultWorkingDirectory)
-    cd $(System.DefaultWorkingDirectory)/trust/private
-    chmod 600 mykey.key
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"    
-    docker trust key load xyz.key --name ayushi
-    az acr login -n acr5000.azurecr.io
-    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key xyz.crt ayushi acr5000.azurecr.io/mypoc:$(Build.BuildId)
-    ls
-    pwd
-    docker trust inspect --pretty acr5000.azurecr.io/mypoc:$(Build.BuildId)
+#- script: |
+#    echo $(System.DefaultWorkingDirectory)
+#    cd $(System.DefaultWorkingDirectory)/trust/private
+#    chmod 600 mykey.key
+#    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"    
+#    docker trust key load xyz.key --name ayushi
+#    az acr login -n acr5000.azurecr.io
+#    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
+#    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
+#    docker trust signer add --key xyz.crt ayushi acr5000.azurecr.io/mypoc:$(Build.BuildId)
+#    ls
+#    pwd
+#    docker trust inspect --pretty acr5000.azurecr.io/mypoc:$(Build.BuildId)
 
 - task: Docker@2
   inputs:
@@ -62,6 +62,12 @@ steps:
     tags: '$(Build.BuildId)'
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Jfrogart'
+    repository: 'devopspoc'
+    command: 'push'
 
 
 
