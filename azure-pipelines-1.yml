@@ -69,7 +69,7 @@ steps:
 
 - task: ArtifactoryXrayScan@1
   inputs:
-    artifactoryService: 'jfrogrepo'
+    artifactoryService: 'jxray_svc'
     buildName: '$(Build.Repository.Name)'
     buildNumber: $(Build.BuildId)
     allowFailBuild: true
