@@ -73,7 +73,7 @@ steps:
 
 - task: ArtifactoryXrayScan@1
   inputs:
-    artifactoryService: 'jfrogconnect'
+    artifactoryService: 'artifactorysvc'
     buildName: 'mypoc1'
     buildNumber: '1081'
     allowFailBuild: true
