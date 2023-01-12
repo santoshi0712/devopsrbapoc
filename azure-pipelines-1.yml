@@ -68,27 +68,20 @@ steps:
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 
-- task: Docker@0
-  displayName: 'Run a docker command (convert to .tar)'
+- task: ArtifactoryDocker@1
   inputs:
-    azureSubscription: 'Azure-Infra-Terraform'
-    azureContainerRegistry: ACR5000
-    action: 'Run a Docker command'
-    customCommand: 'save -o $(Build.ArtifactStagingDirectory)/mypoc.tar  acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)'
+    command: 'push'
+    artifactoryService: 'artifactorysvc'
+    targetRepo: 'dockerimages'
+    imageName: '$(Build.Repository.Name)'
+    collectBuildInfo: true
+    buildName: '$(Build.DefinitionName)'
+    buildNumber: '$(Build.BuildId)'
 
-- task: JFrogGenericArtifacts@1
+- task: ArtifactoryXrayScan@1
   inputs:
-    command: 'Upload'
-    connection: 'pvtjfrogconnection'
-    specSource: 'taskConfiguration'
-    fileSpec: |
-      {
-        "files": [
-          {
-            "pattern":"$(Build.ArtifactStagingDirectory)/mypoc.tar",
-            "target": "devopspoc/"
-          }
-        ]
-      }
-    failNoOp: false
+    artifactoryService: 'artifactorysvc'
+    buildName: 'mypoc1'
+    buildNumber: $(Build.BuildId)
+    allowFailBuild: true
 
