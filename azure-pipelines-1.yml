@@ -70,10 +70,11 @@ steps:
 - task: JFrogBuildScan@1
   inputs:
     xrayConnection: 'jxray_svc'
-    buildName: 'devopsrbapocjfrog.jfrog.io/dockerimages/$(Build.Repository.Name)'
+    buildName: '$(Build.Repository.Name)'
     buildNumber: '$(Build.BuildId)'
     allowFailBuild: true
     vuln: false
+
 #- task: ArtifactoryXrayScan@1
 #  inputs:
 #    artifactoryService: 'jxray_svc'
