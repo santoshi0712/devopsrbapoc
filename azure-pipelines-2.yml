@@ -59,23 +59,23 @@ steps:
     containerRegistry: 'app_acr_registry_service_connection'
     repository: 'mypoc1'
     command: 'push'
-    tags: '1081'
+    tags: $(Build.BuildId)
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 - script: |
-    docker tag acr5000.azurecr.io/mypoc1:1081 devopsrbapocjfrog.jfrog.io/dockerimages/mypoc1:1081
+    docker tag acr5000.azurecr.io/mypoc1:$(Build.BuildId) devopsrbapocjfrog.jfrog.io/dockerimages/mypoc1:$(Build.BuildId)
 - task: Docker@2
   inputs:
     containerRegistry: 'jfrogrepo'
     repository: 'dockerimages/mypoc1'
     command: 'push'
-    tags: '1081'
+    tags: $(Build.BuildId)
 
 - task: ArtifactoryXrayScan@1
   inputs:
     artifactoryService: 'artifactorysvc'
     buildName: 'mypoc1'
-    buildNumber: '1081'
+    buildNumber: $(Build.BuildId)
     allowFailBuild: true
 
 
