@@ -67,13 +67,25 @@ steps:
     command: 'push'
     tags: $(Build.BuildId)
 
-- task: JFrogBuildScan@1
+
+- task: JFrogDocker@1
   inputs:
+    command: 'Scan'
     xrayConnection: 'jxray_svc'
-    buildName: '$(Build.Repository.Name)'
-    buildNumber: '$(Build.BuildId)'
+    watchesSource: 'none'
+    licenses: true
     allowFailBuild: true
-    vuln: false
+    threads: '3'
+    skipLogin: false
+    imageName: $(Build.Repository.Name)
+
+#- task: JFrogBuildScan@1
+#  inputs:
+#    xrayConnection: 'jxray_svc'
+#    buildName: '$(Build.Repository.Name)'
+#    buildNumber: '$(Build.BuildId)'
+#    allowFailBuild: true
+#    vuln: false
 
 #- task: ArtifactoryXrayScan@1
 #  inputs:
