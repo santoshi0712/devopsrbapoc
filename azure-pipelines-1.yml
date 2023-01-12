@@ -10,12 +10,6 @@ trigger:
 pool:
   name: Azure-Infra_Pool
 
-#variables:
-  #system.debug: true
-  #containerRegistryServiceConnection: serviceConnectionName
-  #imageRepository: foobar/content-trust
-  #tag: test
-
 steps:
 - task: Docker@2
   inputs:
@@ -74,4 +68,27 @@ steps:
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 
+- task: Docker@0
+  displayName: 'Run a docker command (convert to .tar)'
+  inputs:
+    azureSubscription: 'Azure-Infra-Terraform'
+    azureContainerRegistry: ACR5000
+    action: 'Run a Docker command'
+    customCommand: 'save -o $(Build.ArtifactStagingDirectory)/mypoc.tar  acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)'
+
+- task: JFrogGenericArtifacts@1
+  inputs:
+    command: 'Upload'
+    connection: 'pvtjfrogconnection'
+    specSource: 'taskConfiguration'
+    fileSpec: |
+      {
+        "files": [
+          {
+            "pattern":"$(Build.ArtifactStagingDirectory)/mypoc.tar",
+            "target": "devopspoc/"
+          }
+        ]
+      }
+    failNoOp: false
 
