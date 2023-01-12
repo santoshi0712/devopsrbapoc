@@ -33,13 +33,13 @@ steps:
 - script: |
     cp $(privatekey.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
 
-#- task: Docker@2
-#  inputs:
-#    containerRegistry: 'app_acr_registry_service_connection'
-#    repository: 'mypoc'
-#    command: 'build'
-#    Dockerfile: 'dockerfile1'
-#    arguments: '--disable-content-trust=false'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'app_acr_registry_service_connection'
+    repository: 'mypoc1'
+    command: 'build'
+    Dockerfile: 'dockerfile1'
+    arguments: '--disable-content-trust=false'
 #- script: |
 #    echo $(System.DefaultWorkingDirectory)
 #    cd $(System.DefaultWorkingDirectory)/trust/private
@@ -49,27 +49,35 @@ steps:
 #    az acr login -n acr5000.azurecr.io
 #    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
 #    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-#    docker trust signer add --key xyz.crt ayushi acr5000.azurecr.io/mypoc:$(Build.BuildId)
+#    docker trust signer add --key xyz.crt ayushi acr5000.azurecr.io/mypoc11:$(Build.BuildId)
 #    ls
 #    pwd
-#    docker trust inspect --pretty acr5000.azurecr.io/mypoc:$(Build.BuildId)
+#    docker trust inspect --pretty acr5000.azurecr.io/mypoc11:$(Build.BuildId)
 
 - task: Docker@2
   inputs:
     containerRegistry: 'app_acr_registry_service_connection'
-    repository: 'mypoc'
+    repository: 'mypoc1'
     command: 'push'
     tags: '1081'
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 - script: |
-    docker tag acr5000.azurecr.io/mypoc:1081 devopsrbapocjfrog.jfrog.io/dockerimages/mypoc:1081
+    docker tag acr5000.azurecr.io/mypoc1:1081 devopsrbapocjfrog.jfrog.io/dockerimages/mypoc1:1081
 - task: Docker@2
   inputs:
     containerRegistry: 'jfrogrepo'
-    repository: 'dockerimages/mypoc'
+    repository: 'dockerimages/mypoc1'
     command: 'push'
     tags: '1081'
+
+- task: ArtifactoryXrayScan@1
+  inputs:
+    artifactoryService: 'jfrogconnect'
+    buildName: 'mypoc1'
+    buildNumber: '1081'
+    allowFailBuild: true
+
 
 
 
