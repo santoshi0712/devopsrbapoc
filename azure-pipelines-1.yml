@@ -58,7 +58,7 @@ steps:
     docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
     #Repo_Key=`docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId) | grep "Repository Key" | awk '{print $3}'`
     #docker trust key load $Repo_Key
-    docker tag acr5000.azurecr.io/(Build.Repository.Name):$(Build.BuildId) devopsrbapocjfrog.jfrog.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId) 
+    docker tag acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId) devopsrbapocjfrog.jfrog.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId) 
 
 - task: Docker@2
   inputs:
