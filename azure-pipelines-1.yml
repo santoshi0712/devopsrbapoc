@@ -70,7 +70,7 @@ steps:
 - task: JFrogBuildScan@1
   inputs:
     xrayConnection: 'jxray_svc'
-    buildName: 'dockerimages/$(Build.Repository.Name)'
+    buildName: 'devopsrbapocjfrog.jfrog.io/dockerimages/$(Build.Repository.Name)'
     buildNumber: '$(Build.BuildId)'
     allowFailBuild: true
     vuln: false
