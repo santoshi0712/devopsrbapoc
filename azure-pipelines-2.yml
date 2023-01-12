@@ -9,6 +9,8 @@ trigger:
 pool:
   name: Azure-Infra_Pool
 
+steps:
+
 - task: Docker@2
   inputs:
     containerRegistry: 'acr-connection'
