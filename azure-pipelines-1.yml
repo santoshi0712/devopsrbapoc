@@ -64,23 +64,14 @@ steps:
     docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
     #Repo_Key=`docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId) | grep "Repository Key" | awk '{print $3}'`
     #docker trust key load $Repo_Key 
-#- task: Docker@0
-#  inputs: 
-#    containerregistrytype: Azure Container Registry
-#    #azureSubscription: Azure-Infra-Terraform
-#    azureSubscription: MBU_RBA_NextGen_POC (579ac225-23b7-4453-9785-6042f2570fe8)
-#    azurecontainerRegistry: acr5000
-#    action: Push an image
-#    imageName: acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
-#  env:
-#    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
+
 - task: Docker@2
   inputs:
     containerRegistry: 'app_acr_registry_service_connection'
     repository: '$(Build.Repository.Name)'
     command: 'push'
     tags: '$(Build.BuildId)'
- # env:
- #   DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
+  env:
+    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 
 
