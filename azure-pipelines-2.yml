@@ -62,7 +62,8 @@ steps:
     tags: '1081'
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
-
+- script: |
+    docker tag acr5000.azurecr.io/mypoc:1081 20.211.1.33:8082:tag
 - task: Docker@2
   inputs:
     containerRegistry: 'jfrogrepo'
