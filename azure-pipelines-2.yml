@@ -16,43 +16,12 @@ steps:
     containerRegistry: 'acr-connection'
     command: 'login'
 
-- task: DownloadSecureFile@1
-  name: certificate
-  inputs:
-    secureFile: 'xyz.crt'
-- script: |
-    mkdir -p $(System.DefaultWorkingDirectory)/trust/private
-    cp $(certificate.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
-    echo$(System.DefaultWorkingDirectory)/trust/private
-    git clone https://github.com/ayushigupta-12/devopsrbapoc
-
-- task: DownloadSecureFile@1
-  name: privatekey
-  inputs:
-    secureFile: 'xyz.key'
-- script: |
-    cp $(privatekey.secureFilePath) $(System.DefaultWorkingDirectory)/trust/private
-
 - task: Docker@2
   inputs:
     containerRegistry: 'app_acr_registry_service_connection'
     repository: 'mypoc1'
     command: 'build'
     Dockerfile: 'dockerfile1'
-    arguments: '--disable-content-trust=false'
-#- script: |
-#    echo $(System.DefaultWorkingDirectory)
-#    cd $(System.DefaultWorkingDirectory)/trust/private
-#    chmod 600 mykey.key
-#    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"    
-#    docker trust key load xyz.key --name ayushi
-#    az acr login -n acr5000.azurecr.io
-#    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
-#    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-#    docker trust signer add --key xyz.crt ayushi acr5000.azurecr.io/mypoc11:$(Build.BuildId)
-#    ls
-#    pwd
-#    docker trust inspect --pretty acr5000.azurecr.io/mypoc11:$(Build.BuildId)
 
 - task: Docker@2
   inputs:
@@ -60,8 +29,6 @@ steps:
     repository: 'mypoc1'
     command: 'push'
     tags: $(Build.BuildId)
-  env:
-    DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 - script: |
     docker tag acr5000.azurecr.io/mypoc1:$(Build.BuildId) devopsrbapocjfrog.jfrog.io/dockerimages/mypoc1:$(Build.BuildId)
 - task: Docker@2
