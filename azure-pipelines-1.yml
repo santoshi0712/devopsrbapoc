@@ -86,7 +86,7 @@ steps:
 
 - task: ArtifactoryXrayScan@1
   inputs:
-    artifactoryService: 'jxray_svc'
+    artifactoryService: 'artifactory_svc'
     buildName: '$(Build.Repository.Name)'
     buildNumber: $(Build.BuildId)
     allowFailBuild: true
