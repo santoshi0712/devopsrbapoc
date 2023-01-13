@@ -76,13 +76,13 @@ steps:
 #    watchesSource: repoPath
 #    repoPath: dockerimages
 
-- task: JFrogBuildScan@1
-  inputs:
-     xrayConnection: 'jxray_svc'
-     buildName: '$(Build.Repository.Name)'
-     buildNumber: '$(Build.BuildId)'
-     allowFailBuild: true
-     vuln: false
+#- task: JFrogBuildScan@1
+#  inputs:
+#     xrayConnection: 'jxray_svc'
+#     buildName: '$(Build.Repository.Name)'
+#     buildNumber: '$(Build.BuildId)'
+#     allowFailBuild: true
+#     vuln: false
 
 #- task: ArtifactoryXrayScan@1
 #  inputs:
@@ -90,6 +90,13 @@ steps:
 #    buildName: '$(Build.Repository.Name)'
 #    buildNumber: $(Build.BuildId)
 #    allowFailBuild: true
+- task: JFrogBuildScan@1
+  inputs:
+    xrayConnection: 'jxray_svc'
+    buildName: '$(Build.Repository.Name)'
+    buildNumber: '$(Build.BuildId)'
+    allowFailBuild: true
+    vuln: true
 
 - task: Docker@2
   inputs:
