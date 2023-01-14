@@ -6,8 +6,11 @@
 trigger:
 - main
 
+#pool:
+#  vmImage: ubuntu-latest
+
 pool:
-  vmImage: ubuntu-latest
+  name: Azure-Infra_Pool
 
 steps:
 - script: echo Hello, world!
@@ -28,6 +31,7 @@ steps:
     command: 'build'
     Dockerfile: 'dockerfile1'
     arguments: '--disable-content-trust=false'
+    tags:  $(Build.BuildId)
 
 - task: Docker@2
   inputs:
