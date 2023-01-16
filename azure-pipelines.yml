@@ -42,7 +42,7 @@ steps:
 - task: ArtifactoryXrayScan@1
   inputs:
     artifactoryService: 'artifactorysvc'
-    buildName: '$(Build.RepositoryName)'
+    buildName: dockerimages/$(Build.Repository.Name)
     buildNumber: '$(Build.BuildNumber)'
     allowFailBuild: true
 
