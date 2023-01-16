@@ -30,7 +30,7 @@ steps:
     repository: '$(Build.Repository.Name)'
     command: 'build'
     Dockerfile: 'dockerfile1'
-    arguments: '--disable-content-trust=false''
+    arguments: '--disable-content-trust=false'
     tags:  $(Build.BuildId)
 
 - task: Docker@2
