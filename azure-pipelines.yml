@@ -39,18 +39,19 @@ steps:
     containerRegistry: jfrogrepo
     repository: dockerimages/$(Build.Repository.Name)
     tags: $(Build.BuildId)
-# - task: ArtifactoryXrayScan@1
-#   inputs:
-#     artifactoryService: 'artifactorysvc'
-#     buildName: dockerimages/$(Build.Repository.Name)
-#     buildNumber: '$(Build.BuildNumber)'
-#     allowFailBuild: true
-
-- task: JFrogBuildScan@1
+    
+- task: ArtifactoryXrayScan@1
   inputs:
-    xrayConnection: 'jxray_svc'
+    artifactoryService: jfrogrepo
     buildName: dockerimages/$(Build.Repository.Name)
     buildNumber: '$(Build.BuildNumber)'
     allowFailBuild: true
-    vuln: false
+
+# - task: JFrogBuildScan@1
+#   inputs:
+#     xrayConnection: 'jxray_svc'
+#     buildName: dockerimages/$(Build.Repository.Name)
+#     buildNumber: '$(Build.BuildNumber)'
+#     allowFailBuild: true
+#     vuln: false
 
