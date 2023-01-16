@@ -42,8 +42,8 @@ steps:
 - task: ArtifactoryPublishBuildInfo@1
   inputs:
     artifactoryService: 'artifactorysvc'
-    buildName: '$(Build.Repository.Name)'
-    buildNumber: '$(Build.BuildId)'
+    buildName: dockerimages/$(Build.Repository.Name)
+    buildNumber: $(Build.BuildId)
     
 - task: ArtifactoryXrayScan@1
   inputs:
