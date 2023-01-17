@@ -78,13 +78,13 @@ steps:
 #     buildNumber: $(Build.BuildId)
 #     allowFailBuild: true
 
-# - task: JFrogBuildScan@1
-#   inputs:
-#     xrayConnection: 'jxray_svc'
-#     buildName: dockerimages/$(Build.Repository.Name)
-#     buildNumber: '$(Build.BuildNumber)'
-#     allowFailBuild: true
-#     vuln: false
+- task: JFrogBuildScan@1
+  inputs:
+    xrayConnection: 'jxray_svc'
+    buildName: dockerimages/$(Build.Repository.Name)
+    buildNumber: $(Build.BuildId)
+    allowFailBuild: true
+    vuln: false
 
 # - script: 
 #     docker tag devopsrbapocjfrog.jfrog.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId) 
