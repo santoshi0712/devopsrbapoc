@@ -81,7 +81,7 @@ steps:
 #     vuln: false
 
 - script: 
-    docker tag devopsrbapocjfrog.jfrog.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId)  acr5000.azurecr.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId) 
+    docker tag devopsrbapocjfrog.jfrog.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId) 
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)/trust/private
     chmod 600 mykey.key
