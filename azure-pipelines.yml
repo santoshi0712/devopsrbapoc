@@ -152,9 +152,9 @@ steps:
 - script: echo Hello, world!
     git clone https://peddinti.santoshi:5dzw7bwcgdhpvap5g627ii4l334cvkqwhknexgawmyd3bhzwnmka@dev.azure.com/RBAPrototypeOrg/RBA%20Prototype%20Project/_git/applicationdevops
 
-- powershell: |
-    Start-Sleep -Seconds 300  
-  displayName: 'PowerShell Script'
+# - powershell: |
+#     Start-Sleep -Seconds 300  
+#   displayName: 'PowerShell Script'
 
 - task: Bash@3
   inputs:
