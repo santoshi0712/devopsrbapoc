@@ -58,7 +58,6 @@ steps:
     containerRegistry: jfrogrepo
     repository: docker-scan-repo/$(Build.Repository.Name)
     tags: $(Build.BuildId)
-    
 - script: 
     docker tag devopsrbapocjfrog.jfrog.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
     echo $(System.DefaultWorkingDirectory)
@@ -103,9 +102,8 @@ steps:
 #     allowFailBuild: true
 #     vuln: false
 
-- script: 
+# - script: 
     # docker tag devopsrbapocjfrog.jfrog.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
-
     # echo $(System.DefaultWorkingDirectory)
     # cd $(System.DefaultWorkingDirectory)/trust/private
     # chmod 600 mykey.key
