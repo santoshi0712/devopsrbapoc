@@ -61,20 +61,20 @@ steps:
     repository: docker-scan-repo/$(Build.Repository.Name)
     tags: $(Build.BuildId)
 
-- script: |
-    docker tag devopsrbapocjfrog.jfrog.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)  
-    echo $(System.DefaultWorkingDirectory)
-    cd $(System.DefaultWorkingDirectory)/trust/private
-    chmod 600 mykey.key
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust key load mykey.key --name tcspoc
-    az acr login -n acr5000.azurecr.io
-    export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
-    export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
-    ls
-    pwd
-    docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
+# - script: |
+#     docker tag devopsrbapocjfrog.jfrog.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)  
+#     echo $(System.DefaultWorkingDirectory)
+#     cd $(System.DefaultWorkingDirectory)/trust/private
+#     chmod 600 mykey.key
+#     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
+#     docker trust key load mykey.key --name tcspoc
+#     az acr login -n acr5000.azurecr.io
+#     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
+#     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
+#     docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
+#     ls
+#     pwd
+#     docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
 
 
 # - task: JFrogPublishBuildInfo@1
@@ -96,13 +96,13 @@ steps:
 #     buildNumber: $(Build.BuildId)
 #     allowFailBuild: true
 
-# - task: JFrogBuildScan@1
-#   inputs:
-#     xrayConnection: 'jxray_svc'
-#     buildName: docker-scan-repo/$(Build.Repository.Name)
-#     buildNumber: $(Build.BuildId)
-#     allowFailBuild: true
-#     vuln: false
+- task: JFrogBuildScan@1
+  inputs:
+    xrayConnection: 'jxray_svc'
+    buildName: docker-scan-repo/$(Build.Repository.Name)
+    buildNumber: $(Build.BuildId)
+    allowFailBuild: true
+    vuln: false
 
 
 - task: Docker@2
