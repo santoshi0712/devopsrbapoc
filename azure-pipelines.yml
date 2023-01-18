@@ -141,7 +141,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'app_acr_registry_service_connection'
-    repository: docker-scan-repo/$(Build.Repository.Name)
+    repository: $(Build.Repository.Name)
     command: 'push'
     tags: '$(Build.BuildId)'
   env:
