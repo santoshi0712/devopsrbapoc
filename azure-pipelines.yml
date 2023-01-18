@@ -87,7 +87,7 @@ steps:
 #     vuln: false
 
 - script: 
-    docker tag devopsrbapocjfrog.jfrog.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId) 
+    docker tag devopsrbapocjfrog.jfrog.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
     echo $(System.DefaultWorkingDirectory)
     cd $(System.DefaultWorkingDirectory)/trust/private
     chmod 600 mykey.key
@@ -113,3 +113,9 @@ steps:
     tags: '$(Build.BuildId)'
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
+
+- task: Bash@3
+  inputs:
+     filePath: '$(System.DefaultWorkingDirectory)/imagescanassessment/ImageScanSummaryAssessment.sh'
+     arguments: '$(containerRegistry) $(imageRepository) $(tag) $(subscription)'
+
