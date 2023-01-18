@@ -158,6 +158,6 @@ steps:
 
 - task: Bash@3
   inputs:
-     filePath: '$(System.DefaultWorkingDirectory)/imagescanassessment/ImageScanSummaryAssessment.sh'
+     filePath: 'applicationdevops/imagescanassessment/ImageScanSummaryAssessment.sh'
      arguments: '$(containerRegistry) $(imageRepository) $(tag) $(subscription)'
 
