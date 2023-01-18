@@ -139,7 +139,7 @@ steps:
     #Repo_Key=`docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId) | grep "Repository Key" | awk '{print $3}'`
     #docker trust key load $Repo_Key
      
-     
+
 - task: Docker@2
   inputs:
     containerRegistry: 'app_acr_registry_service_connection'
@@ -153,7 +153,7 @@ steps:
     git clone https://peddinti.santoshi:5dzw7bwcgdhpvap5g627ii4l334cvkqwhknexgawmyd3bhzwnmka@dev.azure.com/RBAPrototypeOrg/RBA%20Prototype%20Project/_git/applicationdevops
 
 - powershell: |
-  Start-Sleep -Seconds 300  
+    Start-Sleep -Seconds 300  
   displayName: 'PowerShell Script'
 
 - task: Bash@3
