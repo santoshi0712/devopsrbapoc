@@ -96,10 +96,10 @@ steps:
     az acr login -n acr5000.azurecr.io
     export DOCKER_CONTENT_TRUST_ROOT_PASSPHRASE="tcspoc123"
     export DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE="tcspoc123"
-    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId)
+    docker trust signer add --key mypoc.crt tcspoc acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
     ls
     pwd
-    docker trust inspect --pretty acr5000.azurecr.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId)
+    docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)
     #Repo_Key=`docker trust inspect --pretty acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId) | grep "Repository Key" | awk '{print $3}'`
     #docker trust key load $Repo_Key
      
