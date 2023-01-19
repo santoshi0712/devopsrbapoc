@@ -105,6 +105,7 @@ steps:
     vuln: false
 
 
+
 # - task: Docker@2
 #   inputs:
 #     containerRegistry: 'app_acr_registry_service_connection'
