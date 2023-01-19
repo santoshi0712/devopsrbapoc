@@ -96,13 +96,13 @@ steps:
 #     buildNumber: $(Build.BuildId)
 #     allowFailBuild: true
 
-# - task: JFrogBuildScan@1
-#   inputs:
-#     xrayConnection: 'jxray_svc'
-#     buildName: docker-scan-repo/$(Build.Repository.Name)
-#     buildNumber: $(Build.BuildId)
-#     allowFailBuild: true
-#     vuln: false
+- task: JFrogBuildScan@1
+  inputs:
+    xrayConnection: 'jxray_svc'
+    buildName: docker-scan-repo/$(Build.Repository.Name)
+    buildNumber: $(Build.BuildId)
+    allowFailBuild: true
+    vuln: false
 
 
 # - task: Docker@2
