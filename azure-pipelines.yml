@@ -114,9 +114,7 @@ steps:
   env:
     DOCKER_CONTENT_TRUST_REPOSITORY_PASSPHRASE: tcspoc123
 
-- script: echo Hello, world!
-    pwd
-    echo $(System.DefaultWorkingDirectory) 
+- script: | 
     git clone https://peddinti.santoshi:5dzw7bwcgdhpvap5g627ii4l334cvkqwhknexgawmyd3bhzwnmka@dev.azure.com/RBAPrototypeOrg/RBA%20Prototype%20Project/_git/applicationdevops
 
 # - powershell: |
