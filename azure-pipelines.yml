@@ -80,7 +80,7 @@ steps:
 - task: JFrogPublishBuildInfo@1
   inputs:
     artifactoryConnection: 'Jfrog-CE'
-    buildName: 'docker-scan-repo/$(Build.Repository.Name)'
+    buildName: $(Build.Repository.Name)
     buildNumber: '$(Build.BuildId)'
 
 # - task: ArtifactoryPublishBuildInfo@1
