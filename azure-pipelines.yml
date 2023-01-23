@@ -99,7 +99,7 @@ steps:
 - task: JFrogBuildScan@1
   inputs:
     xrayConnection: 'jxray_svc'
-    buildName: docker-scan-repo/$(Build.Repository.Name)
+    buildName: $(Build.Repository.Name)
     buildNumber: $(Build.BuildId)
     allowFailBuild: true
     vuln: false
