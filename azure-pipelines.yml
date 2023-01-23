@@ -48,7 +48,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: jfrogrepo
-    repository: 'docker-scan-repo/$(Build.Repository.Name)'
+    repository: 'docker-scan-repo/dummyimage'
     command: 'build'
     Dockerfile: 'dockerfile1'
     arguments: '--disable-content-trust=false'
@@ -58,7 +58,7 @@ steps:
   inputs:
     command: push
     containerRegistry: jfrogrepo
-    repository: docker-scan-repo/$(Build.Repository.Name)
+    repository: docker-scan-repo/dummyimage
     tags: $(Build.BuildId)
 
 # - script: |
@@ -80,7 +80,7 @@ steps:
 - task: JFrogPublishBuildInfo@1
   inputs:
     artifactoryConnection: 'Jfrog-CE'
-    buildName: $(Build.Repository.Name)
+    buildName: dummyimage
     buildNumber: '$(Build.BuildId)'
 
 # - task: ArtifactoryPublishBuildInfo@1
@@ -99,7 +99,7 @@ steps:
 - task: JFrogBuildScan@1
   inputs:
     xrayConnection: 'jxray_svc'
-    buildName: $(Build.Repository.Name)
+    buildName: dummyimage
     buildNumber: $(Build.BuildId)
     allowFailBuild: true
     vuln: false
