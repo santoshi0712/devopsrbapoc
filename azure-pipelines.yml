@@ -48,7 +48,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: jfrogrepo
-    repository: 'docker-scan-repo/dummyimage'
+    repository: 'dockerimages/dummyimage'
     command: 'build'
     Dockerfile: 'dockerfile1'
     arguments: '--disable-content-trust=false'
@@ -58,11 +58,11 @@ steps:
   inputs:
     command: push
     containerRegistry: jfrogrepo
-    repository: docker-scan-repo/dummyimage
+    repository: dockerimages/dummyimage
     tags: $(Build.BuildId)
 
 # - script: |
-#     docker tag devopsrbapocjfrog.jfrog.io/docker-scan-repo/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)  
+#     docker tag devopsrbapocjfrog.jfrog.io/dockerimages/$(Build.Repository.Name):$(Build.BuildId) acr5000.azurecr.io/$(Build.Repository.Name):$(Build.BuildId)  
 #     echo $(System.DefaultWorkingDirectory)
 #     cd $(System.DefaultWorkingDirectory)/trust/private
 #     chmod 600 mykey.key
@@ -86,13 +86,13 @@ steps:
 # - task: ArtifactoryPublishBuildInfo@1
 #   inputs:
 #     artifactoryService: 'artifactorysvc'
-#     buildName: docker-scan-repo/$(Build.Repository.Name)
+#     buildName: dockerimages/$(Build.Repository.Name)
 #     buildNumber: $(Build.BuildId)
     
 # - task: ArtifactoryXrayScan@1
 #   inputs:
 #     artifactoryService: artifactorysvc
-#     buildName: docker-scan-repo/$(Build.Repository.Name)
+#     buildName: dockerimages/$(Build.Repository.Name)
 #     buildNumber: $(Build.BuildId)
 #     allowFailBuild: true
 
